@@ -21,8 +21,8 @@
             background-color: var(--dark-bg);
             color: var(--text-color);
             background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            linear-gradient(var(--grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
             background-size: 40px 40px;
             line-height: 1.6;
             overflow-x: hidden;
@@ -626,13 +626,13 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-        }
+    }
         
         .logo {
             font-size: 1.2rem;
             font-weight: bold;
             color: var(--primary-color);
-        }
+    }
         
         .menu-btn {
             font-size: 1.8rem;
@@ -640,34 +640,87 @@
             border: none;
             color: white;
             cursor: pointer;
-        }
         
-        /* MENÚ DESPLEGABLE */
-        .mobile-menu {
+    }
+
+
+        /* BOTÓN HAMBURGUESA */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+    }
+
+        /* MENÚ MÓVIL */
+        @media (max-width: 768px) {
+
+        .menu-toggle {
+            display: block;
+        }
+
+        .nav-links {
             display: none;
             flex-direction: column;
             background: var(--card-bg);
-            padding: 20px;
             position: absolute;
-            top: 60px;
-            width: 100%;
-            z-index: 999;
+            top: 70px;
+            right: 20px;
+            width: 200px;
+            padding: 20px;
+            border-radius: 12px;
         }
-        
-        .mobile-menu a {
-            padding: 12px 0;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+
+        .nav-links li {
+            margin-bottom: 15px;
         }
-        
-        /* SOLO EN CELULAR */
-        @media (max-width: 768px) {
-        
-            .mobile-header {
+
+        .nav-links.active {
             display: flex;
-            }
-        
         }
-    
+    }
+
+
+        /* HABILIDADES EN CELULAR */
+        @media (max-width: 768px) {
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .skill-item {
+            padding: 20px 15px;
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+        }
+
+    }
+
+
+        /* PROYECTOS EN CELULAR */
+        @media (max-width: 768px) {
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-img-container {
+            height: 160px;
+        }
+
+        .project-info h3 {
+            font-size: 1.1rem;
+        }
+
+        .project-info p {
+            font-size: 0.9rem;
+        }
+}
