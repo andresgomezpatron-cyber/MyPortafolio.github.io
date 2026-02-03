@@ -1,132 +1,104 @@
-// Menú hamburguesa para móviles
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
-
-hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-});
-
-// Cerrar menú al hacer clic en un enlace
-document.querySelectorAll(".nav-menu a").forEach(n => n.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-}));
-
-// Crear símbolos de código para el fondo
-const fondo = document.getElementById('fondoCodigo');
-const simbolos = ['{}', '()', '[]', '</>', ';', '=>', '===', '{}', '()', '/*', '//', '&&', '||', '!=', '#', '*', '@', '$', '%', '&', '=', '+', '-', '/', '\\'];
-
-for (let i = 0; i < 25; i++) {
-    const simbolo = document.createElement('div');
-    simbolo.classList.add('simbolo');
-    simbolo.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
-    
-    // Posición aleatoria
-    simbolo.style.left = Math.random() * 100 + 'vw';
-    
-    // Retraso aleatorio
-    simbolo.style.animationDelay = Math.random() * 20 + 's';
-    
-    // Tamaño aleatorio
-    const size = Math.random() * 10 + 20;
-    simbolo.style.fontSize = size + 'px';
-    
-    // Opacidad aleatoria
-    const opacity = Math.random() * 0.05 + 0.05;
-    simbolo.style.color = `rgba(180, 180, 180, ${opacity})`;
-    
-    // Velocidad aleatoria
-    const duration = Math.random() * 10 + 20;
-    simbolo.style.animationDuration = duration + 's';
-    
-    fondo.appendChild(simbolo);
-}
-
-// Efecto de escritura para el título
-const titulo = "Analista y Desarrollador De Software";
-const elemento = document.querySelector('.titulo-profesional');
-
-function typeWriter(text, i, fnCallback) {
-    if (i < text.length) {
-        elemento.innerHTML = text.substring(0, i+1) + '<span aria-hidden="true"></span>';
-        setTimeout(function() {
-            typeWriter(text, i + 1, fnCallback)
-        }, 100);
-    } else if (typeof fnCallback == 'function') {
-        setTimeout(fnCallback, 700);
-    }
-}
-
-// Iniciar efecto de escritura cuando la página cargue
-window.addEventListener('DOMContentLoaded', (event) => {
-    setTimeout(function() {
-        typeWriter(titulo, 0, function() {
-            // Callback después de terminar
+// Navegación suave al hacer clic en los enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+        // Remover clase active de todos los enlaces
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.classList.remove('active');
         });
-    }, 1000);
+
+        this.classList.add('active');
+
+        const targetElement = document.querySelector(this.getAttribute('href'));
+
+        targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
 });
 
-const canvas = document.getElementById("codeCanvas");
-const ctx = canvas.getContext("2d");
+        // Cambiar enlace activo al hacer scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        // Efectos de iluminación para la foto de perfil
+        const profileImg = document.querySelector('.profile-img');
+        profileImg.addEventListener('mouseenter', () => {
+            profileImg.style.boxShadow = '0 0 50px var(--primary-color)';
+            profileImg.style.filter = 'brightness(1.3)';
+        });
 
-const symbols = "{}[]();<>+-*/=";
-const fontSize = 16;
-const columns = canvas.width / fontSize;
-const drops = [];
+        profileImg.addEventListener('mouseleave', () => {
+            profileImg.style.boxShadow = '0 0 30px var(--primary-color)';
+            profileImg.style.filter = 'brightness(1)';
+        });
 
-for (let x = 0; x < columns; x++) {
-    drops[x] = Math.random() * canvas.height;
-}
+        // Validación del formulario de contacto
+        const contactForm = document.getElementById('messageForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                if (name && email && subject && message) {
+                    // Aquí iría la lógica para enviar el formulario
+                    alert('¡Mensaje enviado con éxito! Te contactaré pronto.');
+                    contactForm.reset();
+                } else {
+                    alert('Por favor, completa todos los campos.');
+                }
+            });
+        }
 
-function draw() {
-    ctx.fillStyle = "rgba(26, 26, 26, 0.1)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const btnTop = document.getElementById("btnTop");
 
-    ctx.fillStyle = "#555555";
-    ctx.font = fontSize + "px monospace";
+        // Mostrar boton arriba
+        window.addEventListener("scroll",() => {
+            if (window.scrollY > 300) {
+                btnTop.style.display = "flex";
+            }    else {
+                btnTop.style.display = "none";
+            }
+            }
+        );
 
-for (let i = 0; i < drops.length; i++) {
-    const text = symbols.charAt(Math.floor(Math.random() * symbols.length));
-    ctx.fillText(text, i * fontSize, drops[i]);
-    drops[i] += fontSize * 0.3;
-    if (drops[i] > canvas.height) drops[i] = 0;
-    }
-}
+        // Subir suavemente
+        btnTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
 
-setInterval(draw, 60);
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.querySelector(".nav-links");
 
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
-function createRipple(event) {
-    const ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    document.body.appendChild(ripple);
-
-let x, y;
-if(event.touches) {
-    x = event.touches[0].clientX;
-    y = event.touches[0].clientY;
-} else {
-    x = event.clientX;
-    y = event.clientY;
-}
-
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.style.width = '20px';
-    ripple.style.height = '20px';
-
-    ripple.addEventListener('animationend', () => {
-    ripple.remove();
-});
-}
-
-document.addEventListener('click', createRipple);
-document.addEventListener('touchstart', createRipple);
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
