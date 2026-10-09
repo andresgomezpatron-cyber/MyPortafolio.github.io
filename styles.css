@@ -139,23 +139,13 @@
         }
 
         .profile-img {
-            width: 220px;
-            height: 220px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
             object-fit: cover;
+            object-position: center 0%
             border: 5px solid var(--primary-color);
             margin: 0 auto 30px;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            box-shadow: 0 0 30px var(--primary-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px var(--primary-color);
-            filter: brightness(1.2);
         }
 
         .intro-text h1 {
